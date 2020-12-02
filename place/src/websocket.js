@@ -58,12 +58,12 @@ class WebSocketService {
   sendMessage = (routeKey, message) => {    
     if(this.websocket && this.isOpen){
       this.websocket.send(JSON.stringify({
-        rcaction: routeKey,
-        rcmsg: JSON.stringify(message)
+        action: routeKey,
+        data: JSON.stringify(message)
       }));
     }else{      
       console.log(`Websocket connection not found!!`);
-    }    
+    }
   }
 
   /**
@@ -92,6 +92,7 @@ class WebSocketService {
    */
   onMessage = (data) => {
     if (data) {
+      console.log(data)
       const message = JSON.parse(data.data);    
       const typeListener = this.messageListeners.find(listener => listener.type === message.type);
 
