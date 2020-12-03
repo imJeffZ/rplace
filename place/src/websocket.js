@@ -84,20 +84,22 @@ class WebSocketService {
     });
   }
 
+  
+
   /**
    * Handler that receives the actual messages from the WebSocket API
    * For now it simply returns the parsed message body to the appropriate
    * registered handler
    * @param data Message body received from WebSocket 
    */
-  onMessage = (data) => {
-    if (data) {
-      console.log(data)
-      const message = JSON.parse(data.data);    
+  onMessage = (message) => {
+    if (message) {
+      console.log(message)
+      const data = JSON.parse(message.data);
       const typeListener = this.messageListeners.find(listener => listener.type === message.type);
 
       if (typeListener && typeof typeListener.listener === "function") {      
-        typeListener.listener(message);
+        typeListener.listener(data);
       } else {
         console.log('No handler found for message type');
       }
