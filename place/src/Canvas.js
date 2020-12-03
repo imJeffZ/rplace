@@ -14,7 +14,7 @@ class Canvas extends Component {
         // connect to websocket
         this.setState({
             ws: getWSService()
-        }, this.addWSListener)
+        }, this.initWSListener)
 
         $.ajax({
             method: "GET",
@@ -26,7 +26,7 @@ class Canvas extends Component {
                     var x = pixel%1000;
                     var y = Math.floor(pixel/1000);
                     console.log(x, y, color);
-                    this.updatePixel({x, y, color});
+                    this.updatePixel(x, y, color);
                 }
             }.bind(this)
         })
@@ -36,42 +36,49 @@ class Canvas extends Component {
         this.state.ws.onConnClose();
     }
 
-    updatePixel(data) {
-        const {x, y, color} = data;
-        console.log("triggered updatePixel");
+    updatePixel(x, y, color) {
         var canvas = document.getElementById("myCanvas");
         var ctx = canvas.getContext("2d");
         ctx.fillStyle = color;
         ctx.fillRect(x, y, 100, 100);
     }
 
-    addWSListener() {
-        console.log("react call back added");
-        this.state.ws.addMessageListener("room", "message", this.updatePixel);
+    updateListener(data) {
+        console.log("triggered update listener");
+        const {pixel, color} = data;
+        const x = pixel % 1000;
+        const y = Math.floor(pixel / 1000);
+        
+        this.updatePixel(x, y, color);
+    }
+
+    initWSListener() {
+        this.state.ws.addMessageListener("room", "message", this.updateListener.bind(this));
     }
 
     constructor(props){
         super(props);
         this.setPixel = this.setPixel.bind(this);
-        this.addWSListener = this.addWSListener.bind(this);
+        this.initWSListener = this.initWSListener.bind(this);
     }
 
     setPixel(){
         var x = parseInt(document.getElementById("x").value);
         var y = parseInt(document.getElementById("y").value);
         var color = document.getElementById("color").value;
-        // this.state.ws.sendMessage('sendmessage', 'test');
         var pixel = x+1000*y;
-        console.log(pixel)
-        console.log(typeof(pixel))
         this.state.ws.sendMessage('sendmessage', {pixel, color});
-        this.updatePixel({x, y, color});
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        ctx.fillStyle = color;
+        ctx.fillRect(x, y, 100, 100);
     }
 
     render() {
         return (
             <div>
                 <canvas id="myCanvas" width="999" height="999"></canvas>
+                <br/>
                 <label>X Coordinate: </label>
                 <input type="number" id="x" name="x" min="0" max="999"/>
                 <br/>
