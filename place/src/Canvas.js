@@ -57,12 +57,14 @@ class Canvas extends Component {
     }
 
     setPixel(){
-        var x = document.getElementById("x").value;
-        var y = document.getElementById("y").value;
+        var x = parseInt(document.getElementById("x").value);
+        var y = parseInt(document.getElementById("y").value);
         var color = document.getElementById("color").value;
-        var username = document.getElementById("username").value;
         // this.state.ws.sendMessage('sendmessage', 'test');
-        this.state.ws.sendMessage('sendmessage', {x, y, color});
+        var pixel = x+1000*y;
+        console.log(pixel)
+        console.log(typeof(pixel))
+        this.state.ws.sendMessage('sendmessage', {pixel, color});
         this.updatePixel({x, y, color});
     }
 
@@ -70,10 +72,6 @@ class Canvas extends Component {
         return (
             <div>
                 <canvas id="myCanvas" width="999" height="999"></canvas>
-                <br/>
-                <label>Username: </label>
-                <input type="text" id="username" name="username" />
-                <br/>
                 <label>X Coordinate: </label>
                 <input type="number" id="x" name="x" min="0" max="999"/>
                 <br/>
