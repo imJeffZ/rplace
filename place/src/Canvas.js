@@ -12,7 +12,9 @@ class Canvas extends Component {
 
     componentDidMount() {
         // connect to websocket
-
+        
+        var canvas = document.getElementById("myCanvas");
+        canvas.addEventListener("click", this.onClick, false);
 
         $.ajax({
             method: "GET",
@@ -30,7 +32,7 @@ class Canvas extends Component {
                 this.setState({
                     ws: getWSService()
                 }, this.initWSListener)
-                
+
             }.bind(this)
         })
     }
@@ -63,6 +65,12 @@ class Canvas extends Component {
         super(props);
         this.setPixel = this.setPixel.bind(this);
         this.initWSListener = this.initWSListener.bind(this);
+        this.onClick = this.onClick.bind(this);
+    }
+
+    onClick(e){
+        document.getElementById("x").value = e.layerX;
+        document.getElementById("y").value = e.layerY;
     }
 
     setPixel(){
