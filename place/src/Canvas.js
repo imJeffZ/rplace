@@ -69,7 +69,6 @@ class Canvas extends Component {
     }
 
     onClick(e){
-        console.log(e.layerX, e.layerY)
         document.getElementById("x").value = e.layerX;
         document.getElementById("y").value = e.layerY;
     }
