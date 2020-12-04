@@ -45,7 +45,7 @@ class Canvas extends Component {
         var canvas = document.getElementById("myCanvas");
         var ctx = canvas.getContext("2d");
         ctx.fillStyle = color;
-        ctx.fillRect(x, y, 100, 100);
+        ctx.fillRect(x, y, 10, 10);
     }
 
     updateListener(data) {
@@ -79,10 +79,6 @@ class Canvas extends Component {
         var color = document.getElementById("color").value;
         var pixel = x+1000*y;
         this.state.ws.sendMessage('sendmessage', {pixel, color});
-        var canvas = document.getElementById("myCanvas");
-        var ctx = canvas.getContext("2d");
-        ctx.fillStyle = color;
-        ctx.fillRect(x, y, 100, 100);
     }
 
     render() {
