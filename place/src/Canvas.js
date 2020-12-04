@@ -12,9 +12,7 @@ class Canvas extends Component {
 
     componentDidMount() {
         // connect to websocket
-        this.setState({
-            ws: getWSService()
-        }, this.initWSListener)
+
 
         $.ajax({
             method: "GET",
@@ -28,6 +26,11 @@ class Canvas extends Component {
                     console.log(x, y, color);
                     this.updatePixel(x, y, color);
                 }
+
+                this.setState({
+                    ws: getWSService()
+                }, this.initWSListener)
+                
             }.bind(this)
         })
     }
