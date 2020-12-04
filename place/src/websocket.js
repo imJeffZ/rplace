@@ -2,7 +2,7 @@
 import WebSocket from 'isomorphic-ws';
 
 // const WS_URL = process.env.REACT_APP_WEBSOCKET_URL || "wss://gbi3a1q3jd.execute-api.us-east-1.amazonaws.com/Prod";
-const WS_URL = "wss://gbi3a1q3jd.execute-api.us-east-1.amazonaws.com/Prod";
+const WS_URL = "wss://yv3c4llyjg.execute-api.us-east-1.amazonaws.com/production";
 
 let WSService = null;
 
