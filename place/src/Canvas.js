@@ -18,7 +18,7 @@ class Canvas extends Component {
 
         $.ajax({
             method: "GET",
-            url: "https://br1rakedib.execute-api.us-east-1.amazonaws.com/production",
+            url: "https://91jn12mds8.execute-api.us-east-1.amazonaws.com/production",
             success:function(data){
                 for (let i in data){
                     var pixel = data[i].pixel;
