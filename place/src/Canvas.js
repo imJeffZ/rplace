@@ -7,9 +7,7 @@ class Canvas extends Component {
     state = {
         ws: null
     }
-
     
-
     componentDidMount() {
         // connect to websocket
         
@@ -25,7 +23,6 @@ class Canvas extends Component {
                     var color = data[i].color;
                     var x = pixel%1000;
                     var y = Math.floor(pixel/1000);
-                    console.log(x, y, color);
                     this.updatePixel(x, y, color);
                 }
 
@@ -49,7 +46,6 @@ class Canvas extends Component {
     }
 
     updateListener(data) {
-        console.log("triggered update listener");
         const {pixel, color} = data;
         const x = pixel % 1000;
         const y = Math.floor(pixel / 1000);
