@@ -1,0 +1,34 @@
+def bruteForce (r:org.apache.spark.rdd.RDD[String], count:Int) : org.apache.spark.rdd.RDD[String] = {
+    if (count==0) {
+        return r;
+    } else {
+        var combinations = r.cartesian(bruteForce(r, count-1)).map(x => x._1 + x._2);
+        return combinations
+    }
+}
+
+def search(targetString:String, alphabet:String) : Boolean = {
+    val alphabetlst = alphabet.split("").distinct //split alphabet into list and remove duplicates in alphabet
+    val workerLetter = sc.parallelize(alphabetlst).map(char => char.toString())
+    val occurences = bruteForce(workerLetter, targetString.length() - 1)
+    var result = (occurences.filter(s => s == targetString).count() == 1) //True - Found ; False - Not Found
+    return result
+}
+
+//Test cases: 
+
+val targetString = "test"
+val alphabet = "abcdef"
+search(targetString, alphabet) //False
+
+val targetString = "test"
+val alphabet = "abcdeftzs"
+search(targetString, alphabet) //True
+
+val targetString = "money"
+val alphabet = "aaammmoney"
+search(targetString, alphabet) //True
+
+val targetString = "123"
+val alphabet = "qwertyuiopasdfghjklzxcvbnm"
+search(targetString, alphabet) //False
