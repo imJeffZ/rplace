@@ -46,11 +46,19 @@ class Canvas extends Component {
     }
 
     updateListener(data) {
-        const {pixel, color} = data;
-        const x = pixel % 1000;
-        const y = Math.floor(pixel / 1000);
+        const {statusCode, currentDate} = data;
+        // confirm message
+        if ('statusCode' in data) {
+            console.log("confirm", data);
+        // update pixel message
+        } else {
+            const {pixel, color} = data;
+            const x = pixel % 1000;
+            const y = Math.floor(pixel / 1000);
+            
+            this.updatePixel(x, y, color);
+        }
         
-        this.updatePixel(x, y, color);
     }
 
     initWSListener() {
