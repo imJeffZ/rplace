@@ -50,7 +50,7 @@ class Canvas extends Component {
         // confirm message
         if ('statusCode' in data) {
             console.log("confirm", data);
-        // update pixel message
+            localStorage.setItem("lastUpdate", currentDate);
         } else {
             const {pixel, color} = data;
             const x = pixel % 1000;
