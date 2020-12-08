@@ -46,10 +46,9 @@ class Canvas extends Component {
     }
 
     updateListener(data) {
-        const {statusCode, currentDate} = data;
+        const currentDate = data.currentDate;
         // confirm message
         if ('statusCode' in data) {
-            console.log("confirm", data);
             localStorage.setItem("lastUpdate", currentDate);
         } else {
             const {pixel, color} = data;
@@ -82,7 +81,17 @@ class Canvas extends Component {
         var y = parseInt(document.getElementById("y").value);
         var color = document.getElementById("color").value;
         var pixel = x+1000*y;
-        this.state.ws.sendMessage('sendmessage', {pixel, color});
+
+        var date = Date.parse(localStorage.getItem("lastUpdate"));
+        var now = Date.parse((new Date()).toString())
+
+        if (((date + 300000) <= now) || !(localStorage.getItem("lastUpdate"))){
+            this.state.ws.sendMessage('sendmessage', {pixel, color});
+        } else {
+            alert("Too Early, please wait 5 minutes.")
+        }
+
+        
     }
 
     render() {
