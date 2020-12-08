@@ -1,2 +1,3 @@
 member1: zhongjef email: jefferson.zhong@mail.utoronto.ca
 member2: parikhay email: ayush.parikh@mail.utoronto.ca
+member3: shahmal3 email: malay.shah@mail.utoronto.ca
