@@ -1,4 +1,14 @@
+#!/bin/bash
+
+# distribute work to multiple hosts
+# parallel --sshlogin $(cat servers) < jobs
+
 parallel < jobs
+
+
+
+# Previous wrong approach...
+
 # TARGET=$1
 # ALPHABET=$2
 # RESULT_FILE="spaced_combos"
