@@ -1,2 +1,0 @@
-#!/bin/bash
-time ./parallel.bash hello "hello"
